@@ -57,7 +57,7 @@ class JavaQuestionServiceImplTest {
     @Test
     public void testGetRandomQuestion() {
         out.add(QUESTION_1, ANSWER_1);
-        out.add(QUESTION_2, ANSWER_2);
+        out.getRandomQuestion();
         List<Question> expected = List.of(
                 new Question(QUESTION_1, ANSWER_1),
                 new Question(QUESTION_2, ANSWER_2));

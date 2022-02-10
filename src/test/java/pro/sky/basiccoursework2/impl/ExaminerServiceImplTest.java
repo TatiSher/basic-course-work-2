@@ -40,10 +40,10 @@ class ExaminerServiceImplTest {
                 new Question(QUESTION_1, ANSWER_1),
                 new Question(QUESTION_2, ANSWER_2)));
         Random randomMock = mock(Random.class);
-        when(randomMock.nextInt(anyInt())).thenReturn(0,2);
+        when(randomMock.nextInt(anyInt())).thenReturn(0, 3);
         out.setRandom(randomMock);
 
-        Assertions.assertEquals(new Question(QUESTION_1, ANSWER_1),out.getRandomQuestion());
-        Assertions.assertEquals(new Question(QUESTION_2, ANSWER_2),out.getRandomQuestion());
+        Assertions.assertEquals(new Question(QUESTION_1, ANSWER_1), questionServiceMock.getRandomQuestion());
+        Assertions.assertEquals(new Question(QUESTION_2, ANSWER_2), questionServiceMock.getRandomQuestion());
     }
 }

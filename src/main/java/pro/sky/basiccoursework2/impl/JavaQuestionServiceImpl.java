@@ -15,10 +15,7 @@ public class JavaQuestionServiceImpl implements QuestionService {
 
     public JavaQuestionServiceImpl() {
         questions = new HashSet<>();
-    }
-
-    public void setRandom(Random random) {
-        this.random = random;
+        this.random = new Random();
     }
     
     @Override
