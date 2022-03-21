@@ -3,6 +3,8 @@ package pro.sky.basiccoursework2.service;
 import pro.sky.basiccoursework2.data.Question;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 public interface QuestionService {
 
@@ -15,4 +17,8 @@ public interface QuestionService {
     Collection <Question> getAll();
 
     Question getRandomQuestion();
+
+    int getSize();
+
+    void setRandom(Random randomMock);
 }

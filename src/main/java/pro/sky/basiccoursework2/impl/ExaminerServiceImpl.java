@@ -15,9 +15,8 @@ public class ExaminerServiceImpl implements ExaminerService {
     private Random random;
 
     public ExaminerServiceImpl(QuestionService questionService) {
-
         this.questionService = questionService;
-//        this.random = new Random();
+        this.random = new Random();
     }
 
     public void setRandom(Random random) {
@@ -26,16 +25,15 @@ public class ExaminerServiceImpl implements ExaminerService {
 
     @Override
     public Collection<Question> getQuestions(int amount) {
-        List<QuestionService> services = List.of(questionService);
-        if (amount >= 5) {
+        int size = questionService.getSize();
+        if (amount <=0 || size < amount) {
             throw new BadRequestException();
         }
-        Set<Question> question = new HashSet<>();
-        while (question.size()< amount){
-            QuestionService questionService = services.get(random.nextInt(services.size()));
-            question.add(questionService.getRandomQuestion());
+        Set<Question> questions = new HashSet<>();
+        while (questions.size()< amount){
+            questions.add(questionService.getRandomQuestion());
         }
-        return question;
+        return questions;
     }
 
 }

@@ -6,12 +6,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 import pro.sky.basiccoursework2.data.Question;
+import pro.sky.basiccoursework2.exceptions.BadRequestException;
 import pro.sky.basiccoursework2.service.QuestionService;
+import pro.sky.basiccoursework2.impl.ExaminerServiceImpl;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
@@ -31,19 +32,27 @@ class ExaminerServiceImplTest {
     public void settings() {
         when(questionServiceMock.getAll()).thenReturn(List.of(
                 new Question(QUESTION_1, ANSWER_1),
-                new Question(QUESTION_2, ANSWER_2)));
+                new Question(QUESTION_2, ANSWER_2),
+                new Question(QUESTION_3, ANSWER_3)));
     }
 
     @Test
     public void testGetQuestions() {
-        when(questionServiceMock.getAll()).thenReturn(List.of(
+        when(questionServiceMock.getRandomQuestion()).thenReturn(
                 new Question(QUESTION_1, ANSWER_1),
-                new Question(QUESTION_2, ANSWER_2)));
+                new Question(QUESTION_2, ANSWER_2));
         Random randomMock = mock(Random.class);
-        when(randomMock.nextInt(anyInt())).thenReturn(0, 3);
+        when(randomMock.nextInt(anyInt())).thenReturn(0,1);
         out.setRandom(randomMock);
 
-        Assertions.assertEquals(new Question(QUESTION_1, ANSWER_1), questionServiceMock.getRandomQuestion());
-        Assertions.assertEquals(new Question(QUESTION_2, ANSWER_2), questionServiceMock.getRandomQuestion());
+        Collection<Question> actual = out.getQuestions(5);
+        List<Question> expected = List.of(
+                new Question(QUESTION_1, ANSWER_1),
+                new Question(QUESTION_2, ANSWER_2),
+                new Question(QUESTION_3, ANSWER_3),
+                new Question(QUESTION_4, ANSWER_4),
+                new Question(QUESTION_5, ANSWER_5));
+
+        Assertions.assertIterableEquals(expected,actual);
     }
 }

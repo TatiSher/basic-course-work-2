@@ -4,20 +4,20 @@ import org.springframework.stereotype.Service;
 import pro.sky.basiccoursework2.data.Question;
 import pro.sky.basiccoursework2.exceptions.BadRequestException;
 import pro.sky.basiccoursework2.service.QuestionService;
-
+import pro.sky.basiccoursework2.impl.JavaQuestionServiceImpl;
 import java.util.*;
 
 @Service
 public class JavaQuestionServiceImpl implements QuestionService {
 
-    private final Set<Question> questions;
-    private Random random;
+    private final Set<Question> questions = new HashSet<>();;
+    private Random random = new Random();
 
-    public JavaQuestionServiceImpl() {
-        questions = new HashSet<>();
-        this.random = new Random();
-    }
-    
+//    public JavaQuestionServiceImpl() {
+//        questions = new HashSet<>();
+//        this.random = new Random();
+//    }
+
     @Override
     public Question add(String question, String answer) {
         Question question1 = new Question(question, answer);
@@ -52,7 +52,17 @@ public class JavaQuestionServiceImpl implements QuestionService {
 
     @Override
     public Question getRandomQuestion() {
-        List<Question> questions = List.copyOf(getAll());
-        return questions.get(random.nextInt(questions.size()));
+        return List.copyOf(questions).get(random.nextInt(questions.size()));
     }
+
+    @Override
+    public int getSize(){
+        return questions.size();
+    }
+
+    @Override
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
 }
